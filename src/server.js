@@ -9,7 +9,11 @@ const authMiddleware = require("./middlewares/auth");
 require("dotenv").config();
 connectDB();
 
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:5173", "https://your-frontend-domain.com"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 app.use(express.json());
 
 const User = require("./models/User");
