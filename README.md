@@ -1,244 +1,181 @@
-Todo App Backend (Node.js + Express + MongoDB + JWT)
+Todo Backend API (Node.js + Express + MongoDB + JWT)
 
-A fully functional RESTful backend API built with Node.js, Express, MongoDB, and JWT authentication.
-This backend powers a Todo application where users can:
+A secure and scalable backend for a Task Management Application, built using:
 
-Create an account
+🟢 Node.js
 
-Log in securely
+⚡ Express
 
-Manage personal tasks
+🍃 MongoDB + Mongoose
 
-Perform CRUD operations
+🔐 JWT Authentication
 
-Access only their own data (secure multi-user architecture)
+🔒 Bcrypt Password Hashing
 
-🛠 Tech Stack
+🌍 CORS Enabled
 
-Node.js
+📦 REST API Architecture
 
-Express.js
+This backend powers the Todo Frontend with user authentication and task CRUD operations.
 
-MongoDB + Mongoose
+✨ Features
+🔑 User Authentication
 
-JWT (jsonwebtoken) for authentication
+Signup with hashed passwords
 
-bcrypt for password hashing
+Login with JWT authentication
 
-CORS
+Protected routes via middleware
 
-Validator for email validation
+Token validation on every secured request
 
-Nodemon (development)
+📝 Task Management API
 
-📌 Features
-🔐 Authentication
+Create new tasks
 
-User Signup
+Fetch all tasks for logged-in user
 
-User Login
+Update tasks (title, description, priority, date, status)
 
-Password hashing using bcrypt
+Delete tasks
 
-JWT-based authentication
+Task–User relationship (each task belongs to a user)
 
-Protected APIs (middleware)
+🔐 Security
 
-📝 Task Management
+Passwords hashed with bcrypt
 
-Create Task
+JWT tokens for session handling
 
-Edit Task
+CORS protection (frontend allowed domains)
 
-Delete Task
-
-Get All Tasks for logged-in user
-
-Tasks linked to the authenticated user only
-
-Validations for priority & status fields
-
-Sorted tasks (latest first)
-
-🧩 Clean Architecture
-
-Models for User & Task
-
-Auth Middleware
-
-Environment-based configuration
-
-Deployed on Render (optional)
-
-📂 Folder Structure
-project/
+🛠️ Tech Stack
+Technology	Purpose
+Node.js	Runtime environment
+Express	Server framework
+MongoDB	Database
+Mongoose	ODM for Mongo
+JWT	Authentication
+Bcrypt	Password hashing
+CORS	Cross-origin security
+📁 Folder Structure
+backend/
 │
 ├── config/
-│   └── db.js               # Database connection
+│   └── db.js          # DB connection
 │
 ├── middlewares/
-│   └── auth.js             # JWT authentication middleware
+│   └── auth.js        # JWT authentication middleware
 │
 ├── models/
-│   ├── User.js
-│   └── Task.js
+│   ├── User.js        # User schema
+│   └── Task.js        # Task schema
 │
 ├── src/
-│   └── server.js           # Main server file
+│   └── server.js      # Main express server & routes
 │
-├── .env                    # Environment variables
-└── package.json
+├── .env               # Environment variables
+├── package.json
+└── README.md
 
 🔧 Installation & Setup
-1️⃣ Clone the repository
-git clone https://github.com/your-username/todo-backend.git
-cd todo-backend
+1️⃣ Clone the repo
+git clone https://github.com/your-username/Todo_backend.git
+cd Todo_backend
 
 2️⃣ Install dependencies
 npm install
 
 3️⃣ Configure environment variables
 
-Create a .env file in root:
+Create a .env file:
 
-MONGO_URI=your_mongodb_atlas_url
+MONGO_URI=your_mongodb_connection_uri
 JWT_SECRET=your_secret_key
 PORT=3000
 
 4️⃣ Start the server
-npm start
-
-5️⃣ Run in development mode (optional)
+Development
 npm run dev
 
-🔐 Authentication Flow
-Signup
+Production
+npm start
 
+
+Server runs at:
+
+👉 http://localhost:3000
+
+🔗 API Endpoints
+🧍 Auth Routes
 POST /api/signup
 
+Create new user
 Body:
 
 {
   "name": "Ali",
-  "email": "test@gmail.com",
+  "email": "ali@gmail.com",
   "password": "123456"
 }
-
-
-Response:
-
-{
-  "message": "User creation Successful",
-  "token": "jwt_token",
-  "user": {
-    "id": "123",
-    "name": "Ali",
-    "email": "test@gmail.com"
-  }
-}
-
-Login
 
 POST /api/login
 
+Login and receive JWT
 Body:
 
 {
-  "email": "test@gmail.com",
+  "email": "ali@gmail.com",
   "password": "123456"
 }
 
+POST /api/profile (Protected)
 
-Response:
+Get user profile based on JWT.
 
-{
-  "token": "jwt_token",
-  "id": "123",
-  "email": "test@gmail.com",
-  "name": "Ali"
-}
+📝 Task Routes
+POST /api/createtask (Protected)
 
-🔒 Protected Routes
-
-Include JWT token in headers:
-
-Authorization: Bearer <your_token>
-
-📝 Task APIs
-Create Task
-
-POST /api/createtask
-
+Create new task
 Body:
 
 {
-  "title": "Learn MERN",
-  "description": "Finish backend",
+  "title": "Learn Redux",
+  "description": "Finish auth logic",
   "priority": "high",
-  "status": "pending",
+  "status": "todo",
   "date": "2025-01-01"
 }
 
-Get Tasks
+GET /api/gettasks (Protected)
 
-GET /api/gettasks
-Returns only the logged-in user’s tasks.
+Fetch all tasks for logged-in user.
 
-Edit Task
+PUT /api/edittask/:id (Protected)
 
-PUT /api/edittask/:id
+Update a task.
 
-Delete Task
+DELETE /api/deletetask/:id (Protected)
 
-DELETE /api/deletetask/:id
+Remove a task.
 
-🌍 Deployment (Render)
+🔐 JWT Authentication Flow
 
-Add environment variables in Render Dashboard:
+User signs up or logs in
 
-MONGO_URI=
-JWT_SECRET=
-PORT=10000
+Server returns a JWT
 
+Frontend stores token in localStorage
 
-Set Build Command:
+All protected requests include:
 
-npm install
+Authorization: Bearer <token>
 
 
-Set Start Command:
+Server verifies token → extracts userId → allows access
 
-npm start
+🚀 Deployment
+🌐 Backend Hosting: Render.com
 
-🛡 Security Implemented
-
-Password hashing
-
-JWT authentication
-
-Protected routes
-
-User-based access control
-
-Data validation
-
-No password included in responses
-
-📈 Possible Future Enhancements
-
-Task filtering (priority, status)
-
-Search tasks
-
-Pagination
-
-Task categories
-
-Profile editing
-
-Dark mode in frontend
-
-🏁 Conclusion
-
-This backend provides a clean, secure, and scalable API for a Todo app using modern MERN principles.
-Perfect for learning backend development, building full-stack apps, or demonstrating real-world skills in interviews.
+Environment variables configured under Render → Environment
+Works perfectly with your Vercel frontend.
