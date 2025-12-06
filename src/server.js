@@ -10,7 +10,7 @@ require("dotenv").config();
 connectDB();
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://your-frontend-domain.com"],
+    origin: ["http://localhost:5173", "https://todo-frontend-flax-one.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
