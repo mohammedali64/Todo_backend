@@ -1,181 +1,96 @@
-Todo Backend API (Node.js + Express + MongoDB + JWT)
+# 📝 Todo Application Backend
 
-A secure and scalable backend for a Task Management Application, built using:
+> A robust and secure RESTful API for managing tasks, built with Node.js, Express, and MongoDB.
 
-🟢 Node.js
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
-⚡ Express
+## � Introduction
 
-🍃 MongoDB + Mongoose
+Welcome to the **Todo Application Backend**! This project serves as the backbone for a task management application, providing secure authentication and comprehensive task CRUD operations. It's designed with scalability and security in mind, utilizing modern practices and libraries.
 
-🔐 JWT Authentication
+## ✨ Features
 
-🔒 Bcrypt Password Hashing
+*   **🔐 Secure Authentication**: User registration and login powered by **JWT** and **Bcrypt** for password hashing.
+*   **�️ Task Management**: Full **CRUD** (Create, Read, Update, Delete) capabilities for user tasks.
+*   **🛡️ Protected Routes**: Middleware to ensure only authenticated users can access their data.
+*   **✅ Input Validation**: Data integrity ensured via server-side validation.
+*   **🌐 CORS Enabled**: Ready for seamless frontend integration with `cors` middleware.
 
-🌍 CORS Enabled
+## 🛠️ Tech Stack
 
-📦 REST API Architecture
+*   **Runtime**: Node.js
+*   **Framework**: Express.js
+*   **Database**: MongoDB (via Mongoose)
+*   **Authentication**: JSON Web Tokens (JWT)
+*   **Tools**:
+    *   `dotenv` for environment configuration
+    *   `validator` for data validation
+    *   `nodemon` for development
 
-This backend powers the Todo Frontend with user authentication and task CRUD operations.
+## 🔌 API Endpoints
 
-✨ Features
-🔑 User Authentication
+### 👤 Authentication
 
-Signup with hashed passwords
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :---: |
+| `POST` | `/api/signup` | Register a new user | ❌ |
+| `POST` | `/api/login` | Authenticate user & get token | ❌ |
+| `POST` | `/api/profile` | Get logged-in user details | ✅ |
 
-Login with JWT authentication
+### 📝 Tasks
 
-Protected routes via middleware
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :---: |
+| `POST` | `/api/createtask` | Create a new task | ✅ |
+| `GET` | `/api/gettasks` | Retrieve all user tasks | ✅ |
+| `PUT` | `/api/edittask/:id` | Update a specific task | ✅ |
+| `DELETE` | `/api/deletetask/:id`| Delete a specific task | ✅ |
 
-Token validation on every secured request
+## 🚀 Getting Started
 
-📝 Task Management API
+Follow these steps to get the server running locally.
 
-Create new tasks
+### Prerequisites
 
-Fetch all tasks for logged-in user
+*   [Node.js](https://nodejs.org/) installed
+*   [MongoDB](https://www.mongodb.com/) installed or a MongoDB Atlas URI
 
-Update tasks (title, description, priority, date, status)
+### Installation
 
-Delete tasks
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/todo-app.git
+    cd todo-app
+    ```
 
-Task–User relationship (each task belongs to a user)
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
 
-🔐 Security
+3.  **Configure Environment Variables**
+    Create a `.env` file in the root directory and add the following:
+    ```env
+    PORT=3000
+    MONGO_URI=your_mongodb_connection_string
+    JWT_SECRET=your_jwt_secret_key
+    ```
 
-Passwords hashed with bcrypt
+4.  **Run the Server**
+    *   For development:
+        ```bash
+        npm run dev
+    *   For production:
+        ```bash
+        npm start
+        ```
 
-JWT tokens for session handling
+5.  **Test the API**
+    The server should be running on `http://localhost:3000`. You can test endpoints using Postman or Insomnia.
 
-CORS protection (frontend allowed domains)
+## � License
 
-🛠️ Tech Stack
-Technology	Purpose
-Node.js	Runtime environment
-Express	Server framework
-MongoDB	Database
-Mongoose	ODM for Mongo
-JWT	Authentication
-Bcrypt	Password hashing
-CORS	Cross-origin security
-📁 Folder Structure
-backend/
-│
-├── config/
-│   └── db.js          # DB connection
-│
-├── middlewares/
-│   └── auth.js        # JWT authentication middleware
-│
-├── models/
-│   ├── User.js        # User schema
-│   └── Task.js        # Task schema
-│
-├── src/
-│   └── server.js      # Main express server & routes
-│
-├── .env               # Environment variables
-├── package.json
-└── README.md
-
-🔧 Installation & Setup
-1️⃣ Clone the repo
-git clone https://github.com/your-username/Todo_backend.git
-cd Todo_backend
-
-2️⃣ Install dependencies
-npm install
-
-3️⃣ Configure environment variables
-
-Create a .env file:
-
-MONGO_URI=your_mongodb_connection_uri
-JWT_SECRET=your_secret_key
-PORT=3000
-
-4️⃣ Start the server
-Development
-npm run dev
-
-Production
-npm start
-
-
-Server runs at:
-
-👉 http://localhost:3000
-
-🔗 API Endpoints
-🧍 Auth Routes
-POST /api/signup
-
-Create new user
-Body:
-
-{
-  "name": "Ali",
-  "email": "ali@gmail.com",
-  "password": "123456"
-}
-
-POST /api/login
-
-Login and receive JWT
-Body:
-
-{
-  "email": "ali@gmail.com",
-  "password": "123456"
-}
-
-POST /api/profile (Protected)
-
-Get user profile based on JWT.
-
-📝 Task Routes
-POST /api/createtask (Protected)
-
-Create new task
-Body:
-
-{
-  "title": "Learn Redux",
-  "description": "Finish auth logic",
-  "priority": "high",
-  "status": "todo",
-  "date": "2025-01-01"
-}
-
-GET /api/gettasks (Protected)
-
-Fetch all tasks for logged-in user.
-
-PUT /api/edittask/:id (Protected)
-
-Update a task.
-
-DELETE /api/deletetask/:id (Protected)
-
-Remove a task.
-
-🔐 JWT Authentication Flow
-
-User signs up or logs in
-
-Server returns a JWT
-
-Frontend stores token in localStorage
-
-All protected requests include:
-
-Authorization: Bearer <token>
-
-
-Server verifies token → extracts userId → allows access
-
-🚀 Deployment
-🌐 Backend Hosting: Render.com
-
-Environment variables configured under Render → Environment
-Works perfectly with your Vercel frontend.
+This project is licensed under the ISC License.
